@@ -2,7 +2,7 @@ const { dest } = require('gulp');
 let gulp = require('gulp'),
     sass = require('gulp-sass'),
     rename = require('gulp-rename'),
-    browserSync = require('browser-sync'),
+    browserSync = require('browser-sync').create(),
     autoprefixer = require('gulp-autoprefixer'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
@@ -11,7 +11,7 @@ let gulp = require('gulp'),
 
 
 gulp.task('sass', function () {
-    return gulp.src('app/scss/style.scss')
+    return gulp.src('app/scss/**/*.scss')
         .pipe(sass({ outputStyle: 'compressed' }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(autoprefixer({ overrideBrowserslist: ['last 8 versions'] }))
@@ -64,7 +64,7 @@ gulp.task('browser-sync', function () {
 
 
 gulp.task('watch', function () {
-    gulp.watch('app/scss/style.scss', gulp.parallel('sass'));
+    gulp.watch('app/scss/*.scss', gulp.parallel('sass'));
     gulp.watch('app/*html', gulp.parallel('html'));
     gulp.watch('app/js/*js', gulp.parallel('sass'));
 });
